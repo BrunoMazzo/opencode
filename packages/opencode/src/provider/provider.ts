@@ -88,6 +88,7 @@ export namespace Provider {
         },
         async getModel(sdk: any, modelID: string) {
           if(modelID.startsWith("arn:")) {
+            
             return sdk.languageModel(modelID)
           }
 
@@ -425,8 +426,10 @@ export namespace Provider {
     })
 
     const provider = s.providers[providerID]
+    log.info("provider", provider)
     if (!provider) throw new ModelNotFoundError({ providerID, modelID })
     const info = provider.info.models[modelID]
+    log.info("info", info)
     if (!info) throw new ModelNotFoundError({ providerID, modelID })
     const sdk = await getSDK(provider.info, info)
 

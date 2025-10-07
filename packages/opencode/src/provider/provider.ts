@@ -87,6 +87,10 @@ export namespace Provider {
           credentialProvider: fromNodeProviderChain(),
         },
         async getModel(sdk: any, modelID: string) {
+          if(modelID.startsWith("arn:")) {
+            return sdk.languageModel(modelID)
+          }
+
           let regionPrefix = region.split("-")[0]
 
           switch (regionPrefix) {
